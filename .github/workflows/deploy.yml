@@ -3,7 +3,7 @@ name: Deploy Webmail to Hostweb
 on:
   push:
     branches:
-      - main # Chạy kịch bản này mỗi khi có code mới đẩy lên nhánh main
+      - main 
 
 jobs:
   deploy:
@@ -11,14 +11,16 @@ jobs:
     runs-on: ubuntu-latest
     
     steps:
+      - name: Kết nối vào mạng Tailscale
+        uses: tailscale/github-action@v2
+        with:
+          authkey: ${{ secrets.TAILSCALE_AUTHKEY }}
       - name: Thực thi kịch bản trên máy chủ qua SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SERVER_SSH_KEY }}
-          # Nếu lệnh sudo trên hostweb yêu cầu nhập pass, bạn cần tạo thêm secret SERVER_PASSWORD
-          # password: ${{ secrets.SERVER_PASSWORD }}
           script: |
             echo "Đang truy cập thư mục dự án..."
             cd ~/webmail
