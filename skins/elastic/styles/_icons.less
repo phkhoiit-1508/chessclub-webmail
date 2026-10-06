@@ -1,0 +1,138 @@
+/**
+ * Icon set: Material Symbols Rounded instead of Font Awesome.
+ *
+ * Elastic draws every icon as `content: @fa-var-<name>` on a :before / :after
+ * pseudo element. Redefining those variables here (LESS: last definition wins,
+ * and this file is imported after fontawesome.less) turns each glyph code into
+ * a Material Symbols ligature name, so no selector has to be rewritten. The
+ * font itself and the shared font settings are in _brand.less.
+ *
+ * Every name below must exist in the font file (fonts/material-symbols-rounded.woff2
+ * is a subset containing exactly these names). An unknown name would show up as
+ * literal text. To add or change an icon: edit this table, then run
+ * build-icon-font.sh to regenerate the font subset. Names are validated against
+ * https://github.com/google/material-design-icons (variablefont/*.codepoints).
+ *
+ * Material Symbols is licensed under the Apache License 2.0.
+ */
+
+@fa-var-address-book:             "contacts";
+@fa-var-address-card:             "contact_page";
+@fa-var-align-justify:            "subject";
+@fa-var-angle-double-down:        "keyboard_double_arrow_down";
+@fa-var-angle-double-left:        "keyboard_double_arrow_left";
+@fa-var-angle-double-right:       "keyboard_double_arrow_right";
+@fa-var-angle-double-up:          "keyboard_double_arrow_up";
+@fa-var-angle-down:               "expand_more";
+@fa-var-angle-left:               "chevron_left";
+@fa-var-angle-right:              "chevron_right";
+@fa-var-angle-up:                 "expand_less";
+@fa-var-archive:                  "archive";
+@fa-var-arrow-left:               "arrow_back";
+@fa-var-arrow-right:              "arrow_forward";
+@fa-var-asterisk:                 "select_all";
+@fa-var-bars:                     "menu";
+@fa-var-bell:                     "notifications";
+@fa-var-calendar:                 "calendar_month";
+@fa-var-calendar-alt:             "calendar_month";
+@fa-var-caret-down:               "arrow_drop_down";
+@fa-var-check:                    "check";
+@fa-var-check-circle:             "check_circle";
+@fa-var-check-square:             "check_box";
+@fa-var-chevron-left:             "chevron_left";
+@fa-var-chevron-right:            "chevron_right";
+@fa-var-circle:                   "circle";
+@fa-var-circle-notch:             "progress_activity";
+@fa-var-clock:                    "schedule";
+@fa-var-cog:                      "settings";
+@fa-var-comment:                  "chat_bubble";
+@fa-var-comments:                 "forum";
+@fa-var-compress-arrows-alt:      "compress";
+@fa-var-copy:                     "content_copy";
+@fa-var-desktop:                  "desktop_windows";
+@fa-var-download:                 "download";
+@fa-var-edit:                     "edit";
+@fa-var-ellipsis-h:               "more_horiz";
+@fa-var-ellipsis-v:               "more_vert";
+@fa-var-envelope:                 "mail";
+@fa-var-envelope-open:            "drafts";
+@fa-var-eraser:                   "ink_eraser";
+@fa-var-exclamation-circle:       "error";
+@fa-var-exclamation-triangle:     "warning";
+@fa-var-external-link-square-alt: "open_in_new";
+@fa-var-eye:                      "visibility";
+@fa-var-file:                     "draft";
+@fa-var-file-alt:                 "description";
+@fa-var-file-archive:             "folder_zip";
+@fa-var-file-audio:               "audio_file";
+@fa-var-file-code:                "code";
+@fa-var-file-excel:               "table_view";
+@fa-var-file-image:               "image";
+@fa-var-file-pdf:                 "picture_as_pdf";
+@fa-var-file-powerpoint:          "slideshow";
+@fa-var-file-video:               "video_file";
+@fa-var-file-word:                "article";
+@fa-var-filter:                   "filter_list";
+@fa-var-fire-alt:                 "report";
+@fa-var-flag:                     "flag";
+@fa-var-folder:                   "folder";
+@fa-var-folder-open:              "folder_open";
+@fa-var-globe:                    "language";
+@fa-var-hdd:                      "storage";
+@fa-var-home:                     "home";
+@fa-var-id-card:                  "badge";
+@fa-var-image:                    "image";
+@fa-var-inbox:                    "inbox";
+@fa-var-info-circle:              "info";
+@fa-var-key:                      "key";
+@fa-var-life-ring:                "support";
+@fa-var-lightbulb:                "lightbulb";
+@fa-var-link:                     "link";
+@fa-var-lock:                     "lock";
+@fa-var-moon:                     "dark_mode";
+@fa-var-mouse-pointer:            "touch_app";
+@fa-var-paper-plane:              "send";
+@fa-var-paperclip:                "attach_file";
+@fa-var-pen:                      "edit";
+@fa-var-pencil-alt:               "edit";
+@fa-var-plus:                     "add";
+@fa-var-plus-square:              "add_box";
+@fa-var-power-off:                "power_settings_new";
+@fa-var-print:                    "print";
+@fa-var-qrcode:                   "qr_code_2";
+@fa-var-question:                 "help";
+@fa-var-question-circle:          "help";
+@fa-var-redo:                     "redo";
+@fa-var-redo-alt:                 "rotate_right";
+@fa-var-reply:                    "reply";
+@fa-var-reply-all:                "reply_all";
+@fa-var-rss-square:               "rss_feed";
+@fa-var-save:                     "save";
+@fa-var-search:                   "search";
+@fa-var-search-minus:             "zoom_out";
+@fa-var-search-plus:              "zoom_in";
+@fa-var-server:                   "dns";
+@fa-var-share:                    "forward";
+@fa-var-share-alt:                "share";
+@fa-var-share-square:             "forward_to_inbox";
+@fa-var-shield-alt:               "shield";
+@fa-var-signature:                "signature";
+@fa-var-sign-in-alt:              "login";
+@fa-var-sliders-h:                "tune";
+@fa-var-spell-check:              "spellcheck";
+@fa-var-sticky-note:              "sticky_note_2";
+@fa-var-sun:                      "light_mode";
+@fa-var-sync:                     "refresh";
+@fa-var-tag:                      "label";
+@fa-var-tasks:                    "checklist";
+@fa-var-times:                    "close";
+@fa-var-trash-alt:                "delete";
+@fa-var-undo:                     "undo";
+@fa-var-unlock:                   "lock_open";
+@fa-var-upload:                   "upload";
+@fa-var-user:                     "person";
+@fa-var-user-friends:             "people";
+@fa-var-user-plus:                "person_add";
+@fa-var-user-times:               "person_remove";
+@fa-var-users:                    "group";
+@fa-var-window-close:             "close";
