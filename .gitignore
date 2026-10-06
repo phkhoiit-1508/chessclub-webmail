@@ -1,0 +1,18 @@
+# 1. Bỏ qua dữ liệu DB
+/db_data/
+/mysql_data/
+/mariadb_data/
+
+# 2. Bỏ qua tất cả các thư mục backup do install.sh tự tạo ra
+/skin-overrides/backup-*/
+
+# 3. BỎ QUA TOÀN BỘ mã nguồn gốc, CHỈ GIỮ LẠI config.inc.php
+/source_code/*
+!/source_code/config/
+/source_code/config/*
+!/source_code/config/config.inc.php
+
+# 4. Rác hệ thống
+.env
+.DS_Store
+*.log

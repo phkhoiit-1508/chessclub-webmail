@@ -1,0 +1,36 @@
+name: Deploy Webmail to Hostweb
+
+on:
+  push:
+    branches:
+      - main # Chạy kịch bản này mỗi khi có code mới đẩy lên nhánh main
+
+jobs:
+  deploy:
+    name: Deploy and Build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Thực thi kịch bản trên máy chủ qua SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USERNAME }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          # Nếu lệnh sudo trên hostweb yêu cầu nhập pass, bạn cần tạo thêm secret SERVER_PASSWORD
+          # password: ${{ secrets.SERVER_PASSWORD }}
+          script: |
+            echo "Đang truy cập thư mục dự án..."
+            cd ~/webmail
+            
+            echo "Kéo code mới nhất từ GitHub..."
+            git pull origin main
+            
+            echo "Cấp quyền thực thi và biên dịch giao diện CSS..."
+            chmod +x ./skin-overrides/install.sh
+            sudo ./skin-overrides/install.sh
+            
+            echo "Cập nhật hệ thống Docker..."
+            sudo docker compose up -d
+            
+            echo "Hoàn tất triển khai Webmail USCC!"
