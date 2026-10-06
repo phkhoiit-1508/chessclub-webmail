@@ -1,0 +1,149 @@
+/**
+ * USCC brand rules that cannot be expressed as variables.
+ *
+ * Installed as skins/elastic/styles/_brand.less and pulled in by one line
+ * appended to styles.less:  @import (optional) "_brand";
+ */
+
+@import (reference) "variables";
+
+// Gold marker on the selected task menu entry
+#taskmenu a.selected {
+    box-shadow: inset 3px 0 0 @brand-gold-500;
+}
+
+// Login page: white-to-rose backdrop (as in the logo) and a larger round logo
+html:not(.dark-mode) .task-login #layout-content {
+    background: linear-gradient(180deg, #fff 0%, @brand-rose-200 100%);
+}
+
+.task-login #logo {
+    max-height: 120px;
+}
+
+// Hover effect for the folder list and the message list (navy-50).
+// Scoped to light mode (a light background would be unreadable on dark mode's
+// light text) and skipping .selected rows, so hovering a selected row keeps its
+// navy-100 selection highlight.
+html:not(.dark-mode) {
+    .folderlist li:not(.selected) > a:hover {
+        background-color: @brand-navy-50 !important;
+        text-decoration: none;
+    }
+
+    #messagelist tbody tr:not(.selected):hover td,
+    table.records-table tbody tr:not(.selected):hover td {
+        background-color: @brand-navy-50 !important;
+        cursor: pointer;
+    }
+
+    // Keep text readable on hover, but leave the unread badge (a span inside
+    // the link) with its own white-on-navy colors
+    .folderlist li:not(.selected) > a:hover,
+    .folderlist li:not(.selected) > a:hover span:not(.unreadcount) {
+        color: @brand-navy-900 !important;
+    }
+}
+
+// Dark mode: halfway between the page background and the selected-row color, so
+// hover reads as lighter than idle but weaker than a selection. The default light
+// text stays as is.
+html.dark-mode {
+    .folderlist li:not(.selected) > a:hover {
+        background-color: mix(@color-dark-background, @color-dark-list-selected-background, 50%) !important;
+        text-decoration: none;
+    }
+
+    #messagelist tbody tr:not(.selected):hover td,
+    table.records-table tbody tr:not(.selected):hover td {
+        background-color: mix(@color-dark-background, @color-dark-list-selected-background, 50%) !important;
+        cursor: pointer;
+    }
+}
+
+// Loading spinner: chess pawn instead of the Bootstrap ring.
+// The only .spinner-border in Elastic is the one in .iframe-loader (ui.js);
+// the "Loading..." message and upload icons use a font icon and are untouched.
+// Pawn glyph from Font Awesome Free (CC BY 4.0), drawn as a mask so it takes
+// the element's text color.
+@pawn-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath d='M215.5 224c29.2-18.4 48.5-50.8 48.5-88c0-57.4-46.6-104-104-104S56 78.6 56 136c0 37.2 19.3 69.6 48.5 88H96c-17.7 0-32 14.3-32 32c0 16.5 12.5 30 28.6 31.8L80.5 448H16c-8.8 0-16 7.2-16 16v16c0 17.7 14.3 32 32 32h256c17.7 0 32-14.3 32-32v-16c0-8.8-7.2-16-16-16h-64.5l-12.1-160.2c16.1-1.8 28.6-15.3 28.6-31.8c0-17.7-14.3-32-32-32h-8.5z'/%3E%3C/svg%3E");
+
+.spinner-border,
+.iframe-loader .spinner-border {
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background-color: currentColor !important;
+    -webkit-mask-image: @pawn-mask !important;
+    mask-image: @pawn-mask !important;
+    -webkit-mask-size: contain !important;
+    mask-size: contain !important;
+    -webkit-mask-repeat: no-repeat !important;
+    mask-repeat: no-repeat !important;
+    -webkit-mask-position: center !important;
+    mask-position: center !important;
+    animation: pawn-pulse .8s infinite alternate ease-in-out !important;
+}
+
+// The loader covers a whole pane, so the pawn is larger there. The default ring
+// color is a pale gray, which would be nearly invisible on the white overlay.
+.iframe-loader .spinner-border {
+    width: 3rem !important;
+    height: 3rem !important;
+    color: @brand-navy-600;
+}
+
+html.dark-mode .iframe-loader .spinner-border {
+    color: @color-dark-main;
+}
+
+@keyframes pawn-pulse {
+    0%   { opacity: .3; transform: translateY(2px) scale(.9); }
+    100% { opacity: 1;  transform: translateY(-2px) scale(1.1); }
+}
+
+// Same pawn for the font-icon spinners (Elastic draws them as :before pseudo
+// elements with the circle-notch glyph and a spin animation): the "Loading..."
+// toast in #messagestack (also used while uploading) and the uploading entry in
+// the attachment list. The glyph is dropped (empty content) and the mask is drawn
+// in the pseudo element's own color, so the toast keeps its white / dark-mode
+// text color and the attachment keeps the list text color.
+.ui.alert.loading > i.icon:before,
+.attachmentslist li.uploading:before {
+    content: "" !important;
+    background-color: currentColor !important;
+    -webkit-mask-image: @pawn-mask !important;
+    mask-image: @pawn-mask !important;
+    -webkit-mask-repeat: no-repeat !important;
+    mask-repeat: no-repeat !important;
+    -webkit-mask-position: center !important;
+    mask-position: center !important;
+    -webkit-mask-size: contain !important;
+    mask-size: contain !important;
+    animation: pawn-pulse .8s infinite alternate ease-in-out !important;
+}
+
+// In the attachment list the pseudo element is as tall as the row (2rem), so
+// shrink the pawn to leave some room around it
+.attachmentslist li.uploading:before {
+    -webkit-mask-size: auto 60% !important;
+    mask-size: auto 60% !important;
+}
+
+// Reduced motion: no translate/scale, but keep a plain fade so a loading
+// indicator never looks frozen (browsers on some Linux setups report
+// "reduce" by default, e.g. when desktop animations are off)
+@keyframes pawn-fade {
+    0%   { opacity: .3; }
+    100% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .spinner-border,
+    .iframe-loader .spinner-border,
+    .ui.alert.loading > i.icon:before,
+    .attachmentslist li.uploading:before {
+        animation: pawn-fade 1.2s infinite alternate ease-in-out !important;
+    }
+}

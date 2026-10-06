@@ -131,4 +131,17 @@ $config['mail_pagesize'] = 30; // Rút xuống 30 thư/trang để tải danh s�
 $config['display_next'] = false; // Tắt tự động mở thư tiếp theo khi xóa thư cũ
 $config['refresh_interval'] = 120; // Giảm tần suất tự động check mail mới (giảm tải cho MariaDB)
 
+// USCC branding (see DESIGN_SYSTEM.md). Logo paths are resolved inside the skin
+// directory (served through static.php), so the files are installed into
+// skins/elastic/images/ by skin-overrides/install.sh. Only enable once they exist,
+// otherwise the login page would show a broken image.
+if (is_file(__DIR__ . '/../skins/elastic/images/uscc_login.png')) {
+    $config['skin_logo'] = [
+        'elastic:*'             => '/images/uscc_login.png',
+        'elastic:*[small]'      => '/images/uscc_small.png',
+        'elastic:*[dark]'       => '/images/uscc_dark.svg',
+        'elastic:*[small-dark]' => '/images/uscc_dark.svg',
+    ];
+}
+
 include(__DIR__ . '/config.docker.inc.php');
