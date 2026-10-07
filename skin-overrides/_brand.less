@@ -72,7 +72,7 @@
 }
 
 // ---------------------------------------------------------------------------
-// Login page — USCC Internal Portal redesign
+// Login page — USCC Webmail redesign
 //
 // Structure (relevant DOM):
 //   body.task-login > #layout > #layout-content.selected.no-navbar
@@ -87,22 +87,12 @@
 // We need to replace the previous white→rose gradient with this new look.
 .task-login #layout-content {
     position: relative;
-    background:
-        linear-gradient(rgba(@brand-navy-900, .85),
-            rgba(@brand-navy-900, .85)),
-        url('../images/uscc-bg.jpg') center center / cover no-repeat;
-    // Prevent the image from scrolling away on short viewports
-    background-attachment: fixed;
+    background: @brand-navy-900;
 }
 
-// Dark mode: deepen the navy overlay so the background is almost imperceptible;
-// keep the image for atmosphere without distracting from the form.
+
 html.dark-mode .task-login #layout-content {
-    background:
-        linear-gradient(rgba(@color-dark-background, .88),
-            rgba(@color-dark-background, .88)),
-        url('../images/uscc-bg.jpg') center center / cover no-repeat;
-    background-attachment: fixed;
+    background: @color-dark-background;
 }
 
 // Logo: keep it large and ensure it reads on the dark overlay
@@ -223,7 +213,7 @@ html.dark-mode .task-login #layout-content {
     }
 
     &::before {
-        content: "USCC Internal Portal";
+        content: "USCC Webmail";
         display: block;
         font-size: .75rem;
         font-weight: 500;
