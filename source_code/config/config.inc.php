@@ -23,6 +23,13 @@ $config['messages_cache'] = true;
 // SMTP
 // ----------------------------------
 $config['smtp_host'] = 'ssl://smtp.gmail.com:465';
+$config['smtp_conn_options'] = [
+    'ssl' => [
+        'verify_peer'       => true,
+        'verify_peer_name'  => true,
+        'bindto'            => '0.0.0.0:0' // Ép IPv4 để tránh timeout DNS
+    ],
+];
 $config['smtp_timeout'] = 15;
 
 // ----------------------------------
@@ -84,9 +91,10 @@ $config['search_mods'] = [
     'Sent' => ['subject' => 1, 'to' => 1], 
     'Drafts' => ['subject' => 1, 'to' => 1]
 ];
-$config['autocomplete_min_length'] = 2;
+$config['draft_autosave'] = 300;
+$config['autocomplete_min_length'] = 3;
 $config['check_all_folders'] = false;
-$config['skip_deleted'] = false;
+$config['skip_deleted'] = true;
 $config['use_minified_assets'] = true;
 
 // ----------------------------------
