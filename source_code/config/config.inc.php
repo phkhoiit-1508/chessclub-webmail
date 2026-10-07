@@ -115,4 +115,6 @@ $config['imap_conn_options'] = [
     ],
 ];
 
+$config['product_name'] = 'USCC Webmail';
+
 include(__DIR__ . '/config.docker.inc.php');
