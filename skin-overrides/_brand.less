@@ -1,10 +1,12 @@
 @import (reference) "variables";
 
-
+// =========================================================
+// 1. TYPOGRAPHY & ICONS
+// =========================================================
 @font-face {
     font-family: 'Material Symbols Rounded';
     font-style: normal;
-    font-weight: 100 700; 
+    font-weight: 100 700;
     font-display: block;
     src: url('../fonts/material-symbols-rounded.woff2') format('woff2');
 }
@@ -29,15 +31,111 @@
 
 @import (optional) "_icons";
 
+[class^="icon-"]::before,
+[class*=" icon-"]::before,
+.button::before,
+.folderlist li>a::before,
+.menu a::before {
+    font-size: 1.3rem !important;
+    vertical-align: middle !important;
+}
+
+// =========================================================
+// 2. OUTLOOK-STYLE MODERN LAYOUT (BO TRÒN CẢ 4 CỘT)
+// =========================================================
+
+// Đặt màu nền tổng thể cho trang để các khối nổi bật lên
+body {
+    background-color: #f1f5f9 !important;
+}
+
+html.dark-mode body {
+    background-color: #0b1226 !important;
+}
+
+// Cột 1: Bo tròn thanh Menu ngoài cùng (giữ nguyên màu gốc)
+#layout-menu {
+    position: relative !important;
+    /* QUAN TRỌNG: Giữ cột 1 ở lại bố cục để đẩy Cột 2 sang phải */
+    height: calc(100% - 16px) !important;
+    /* Chiều cao vừa vặn, không đẩy nút Logout ra ngoài */
+    margin: 8px !important;
+    /* Tạo lề nổi 8px ở cả 4 cạnh */
+    border-radius: 12px !important;
+    background-color: @brand-navy-900 !important;
+    border: none !important;
+    overflow: hidden !important;
+    z-index: 10 !important;
+    /* Đảm bảo menu luôn nổi lên trên */
+}
+
+html.dark-mode #layout-menu {
+    background-color: #0b1120 !important;
+}
+
+#layout-menu>.header,
+#layout-menu>.footer,
+#taskmenu {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+#taskmenu a {
+    background-color: transparent !important;
+}
+
 #taskmenu a.selected {
-    box-shadow: inset 3px 0 0 @brand-gold-500;
+    background-color: rgba(255, 255, 255, 0.08) !important;
+    box-shadow: inset 3px 0 0 @brand-gold-500 !important;
+}
+
+#taskmenu a:hover {
+    background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+
+// Cột 2, 3, 4: Bo tròn và tạo bóng mờ cho Sidebar, List, Content
+#layout-sidebar,
+#layout-list,
+#layout-content {
+    background-color: #ffffff !important; // Nền trắng ở Light Mode
+    border-radius: 12px !important;
+    margin: 8px 8px 8px 0 !important; // Cách lề trên, phải, dưới 8px (trái 0px vì đã có margin của menu)
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+    border: 1px solid rgba(128, 128, 128, 0.15) !important;
+    overflow: hidden;
+}
+
+// Dark Mode cho Cột 2, 3, 4
+html.dark-mode #layout-sidebar,
+html.dark-mode #layout-list,
+html.dark-mode #layout-content {
+    background-color: #16213f !important; // Nền xanh tối
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.05) !important;
+}
+
+// =========================================================
+// 3. LOGIN PAGE REDESIGN
+// =========================================================
+// Ép trang đăng nhập luôn dùng nền xanh đậm để nổi bật form kính mờ
+body.task-login,
+.task-login #layout,
+.task-login #layout-content {
+    background-color: @brand-navy-900 !important;
+    background-image: none !important;
+}
+
+html.dark-mode body.task-login,
+html.dark-mode .task-login #layout,
+html.dark-mode .task-login #layout-content {
+    background-color: #0b1226 !important;
 }
 
 .task-login #layout-content {
     position: relative;
     background: @brand-navy-900;
 }
-
 
 html.dark-mode .task-login #layout-content {
     background: @color-dark-background;
@@ -57,8 +155,6 @@ html.dark-mode .task-login #layout-content {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     padding: 1.5rem 1.75rem 1.25rem;
-
-
     color: #fff;
 
     label,
@@ -70,20 +166,17 @@ html.dark-mode .task-login #layout-content {
     .input-group-text {
         background-color: rgba(255, 255, 255, .10) !important;
         border-color: rgba(255, 255, 255, .20) !important;
-        border-right: none !important; // seamless join with the text input
+        border-right: none !important;
         color: #fff !important;
-
 
         &::before {
             color: #fff !important;
         }
     }
 
-
     .input-group .form-control {
         border-left: none !important;
     }
-
 
     .form-control {
         background-color: rgba(0, 0, 0, .25) !important;
@@ -101,12 +194,6 @@ html.dark-mode .task-login #layout-content {
             box-shadow: 0 0 0 .2rem fade(@brand-gold-500, 30%) !important;
             color: #fff !important;
         }
-    }
-
-    #login-footer {
-        color: rgba(255, 255, 255, .55);
-        margin-top: .75rem;
-        text-align: center;
     }
 }
 
@@ -135,7 +222,7 @@ html.dark-mode .task-login #layout-content {
 }
 
 .task-login #login-footer {
-    font-size: 0; 
+    font-size: 0;
 
     a,
     span,
@@ -155,46 +242,15 @@ html.dark-mode .task-login #layout-content {
     }
 }
 
-html:not(.dark-mode) {
-    .folderlist li:not(.selected)>a:hover {
-        background-color: @brand-navy-50 !important;
-        text-decoration: none;
-    }
-
-    #messagelist tbody tr:not(.selected):hover td,
-    table.records-table tbody tr:not(.selected):hover td {
-        background-color: @brand-navy-50 !important;
-        cursor: pointer;
-    }
-
-    .folderlist li:not(.selected)>a:hover,
-    .folderlist li:not(.selected)>a:hover span:not(.unreadcount) {
-        color: @brand-navy-900 !important;
-    }
-}
-
-html.dark-mode {
-    .folderlist li:not(.selected)>a:hover {
-        background-color: mix(@color-dark-background, @color-dark-list-selected-background, 50%) !important;
-        text-decoration: none;
-    }
-
-    #messagelist tbody tr:not(.selected):hover td,
-    table.records-table tbody tr:not(.selected):hover td {
-        background-color: mix(@color-dark-background, @color-dark-list-selected-background, 50%) !important;
-        cursor: pointer;
-    }
-}
-
-
+// =========================================================
+// 4. ANIMATED PAWN LOADER & SCROLLBARS
+// =========================================================
 @pawn-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512'%3E%3Cpath d='M215.5 224c29.2-18.4 48.5-50.8 48.5-88c0-57.4-46.6-104-104-104S56 78.6 56 136c0 37.2 19.3 69.6 48.5 88H96c-17.7 0-32 14.3-32 32c0 16.5 12.5 30 28.6 31.8L80.5 448H16c-8.8 0-16 7.2-16 16v16c0 17.7 14.3 32 32 32h256c17.7 0 32-14.3 32-32v-16c0-8.8-7.2-16-16-16h-64.5l-12.1-160.2c16.1-1.8 28.6-15.3 28.6-31.8c0-17.7-14.3-32-32-32h-8.5z'/%3E%3C/svg%3E");
 
 .spinner-border,
-.iframe-loader .spinner-border {
-    width: 1.25rem !important;
-    height: 1.25rem !important;
-    border: 0 !important;
-    border-radius: 0 !important;
+.iframe-loader .spinner-border,
+.ui.alert.loading>i.icon:before,
+.attachmentslist li.uploading:before {
     background-color: currentColor !important;
     -webkit-mask-image: @pawn-mask !important;
     mask-image: @pawn-mask !important;
@@ -207,6 +263,11 @@ html.dark-mode {
     animation: pawn-pulse .8s infinite alternate ease-in-out !important;
 }
 
+.spinner-border {
+    width: 1.25rem !important;
+    height: 1.25rem !important;
+    border: 0 !important;
+}
 
 .iframe-loader .spinner-border {
     width: 3rem !important;
@@ -216,6 +277,16 @@ html.dark-mode {
 
 html.dark-mode .iframe-loader .spinner-border {
     color: @color-dark-main;
+}
+
+.ui.alert.loading>i.icon:before,
+.attachmentslist li.uploading:before {
+    content: "" !important;
+}
+
+.attachmentslist li.uploading:before {
+    -webkit-mask-size: auto 60% !important;
+    mask-size: auto 60% !important;
 }
 
 @keyframes pawn-pulse {
@@ -230,71 +301,7 @@ html.dark-mode .iframe-loader .spinner-border {
     }
 }
 
-.ui.alert.loading>i.icon:before,
-.attachmentslist li.uploading:before {
-    content: "" !important;
-    background-color: currentColor !important;
-    -webkit-mask-image: @pawn-mask !important;
-    mask-image: @pawn-mask !important;
-    -webkit-mask-repeat: no-repeat !important;
-    mask-repeat: no-repeat !important;
-    -webkit-mask-position: center !important;
-    mask-position: center !important;
-    -webkit-mask-size: contain !important;
-    mask-size: contain !important;
-    animation: pawn-pulse .8s infinite alternate ease-in-out !important;
-}
-
-.attachmentslist li.uploading:before {
-    -webkit-mask-size: auto 60% !important;
-    mask-size: auto 60% !important;
-}
-
-@keyframes pawn-fade {
-    0% {
-        opacity: .3;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
-
-@media (prefers-reduced-motion: reduce) {
-
-    .spinner-border,
-    .iframe-loader .spinner-border,
-    .ui.alert.loading>i.icon:before,
-    .attachmentslist li.uploading:before {
-        animation: pawn-fade 1.2s infinite alternate ease-in-out !important;
-    }
-}
-
-.btn,
-.form-control,
-.multi-input>.content {
-    border-radius: .4rem;
-}
-
-
-.folderlist li.mailbox .unreadcount {
-    border-radius: 999px;
-    padding: 0 .55em;
-}
-
-
-html:not(.touch):not(.layout-phone) #messagelist tbody td {
-    padding-top: .5rem;
-    padding-bottom: .5rem;
-}
-
 @supports selector(::-webkit-scrollbar) {
-
-    html,
-    html.dark-mode {
-        scrollbar-color: auto;
-    }
-
     html:not(.touch) {
         ::-webkit-scrollbar {
             width: 6px;
@@ -310,8 +317,6 @@ html:not(.touch):not(.layout-phone) #messagelist tbody td {
             border-radius: 10px;
         }
 
-
-
         ::-webkit-scrollbar-thumb:hover {
             background-color: fade(@brand-navy-900, 50%);
         }
@@ -326,40 +331,8 @@ html:not(.touch):not(.layout-phone) #messagelist tbody td {
             background-color: fade(@color-dark-font, 20%);
         }
 
-
-
         ::-webkit-scrollbar-thumb:hover {
             background-color: fade(@color-dark-font, 55%);
         }
     }
-}
-
-// Firefox has no ::-webkit-scrollbar: recolor the standard scrollbar instead
-// (no rounding or auto-hide is possible there)
-@supports not selector(::-webkit-scrollbar) {
-    html {
-        scrollbar-color: fade(@brand-navy-900, 30%) transparent;
-    }
-
-    html.dark-mode {
-        scrollbar-color: fade(@color-dark-font, 35%) transparent;
-    }
-}
-
-
-[class^="icon-"]::before,
-[class*=" icon-"]::before,
-.button::before,
-.folderlist li>a::before,
-.menu a::before {
-    font-size: 1.3rem !important;
-    vertical-align: middle !important;
-}
-
-
-.folderlist li.mailbox .unreadcount {
-    font-size: 0.75rem !important;
-    padding: 0.15rem 0.5rem !important;
-    line-height: 1.2 !important;
-    font-weight: 600 !important;
 }
