@@ -70,6 +70,7 @@ $config['imap_cache_ttl'] = '10d';
 // 2. Messages Cache
 $config['messages_cache_ttl'] = '10d';
 $config['messages_cache_threshold'] = 500;
+$config['messages_prefetch'] = true;
 
 // 3. Ép tải thư nhanh, bỏ qua fetch header (Chống lag thư mục lớn)
 $config['message_sort_col'] = '';
