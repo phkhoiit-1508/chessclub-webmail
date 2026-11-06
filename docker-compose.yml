@@ -22,10 +22,14 @@ services:
     command: redis-server --save "" --appendonly no --maxmemory 128mb --maxmemory-policy allkeys-lru
 
   roundcube:
-    image: roundcube/roundcubemail:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: uscc-roundcubemail:1.7.5
     restart: always
     ports:
-      - "8088:80"
+      # Keep Roundcube private; Cloudflare Tunnel is the public entry point.
+      - "127.0.0.1:8088:80"
     environment:
       - ROUNDCUBEMAIL_DB_TYPE=mysql
       - ROUNDCUBEMAIL_DB_HOST=roundcubedb
@@ -38,7 +42,7 @@ services:
       - ROUNDCUBEMAIL_SMTP_PORT=465
     volumes:
       # 2. Ánh xạ toàn bộ mã nguồn ra ngoài để chỉnh sửa
-      - ./source_code:/var/www/html
+      - ./source_code/config/config.inc.php:/var/www/html/config/config.inc.php:ro
       - ./php-perf.ini:/usr/local/etc/php/conf.d/zz-php-perf.ini:ro
     depends_on:
       - roundcubedb
@@ -46,6 +50,16 @@ services:
     extra_hosts:
       - "imap.gmail.com:64.233.189.108"
       - "smtp.gmail.com:64.233.189.108"
+
+  # Named Cloudflare Tunnel. Set CLOUDFLARE_TUNNEL_TOKEN in .env locally.
+  # The tunnel hostname should be configured in Cloudflare to point to:
+  # http://roundcube:80
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: always
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN:?Set CLOUDFLARE_TUNNEL_TOKEN in .env}
+    depends_on:
+      - roundcube
 
 volumes:
   db_data:

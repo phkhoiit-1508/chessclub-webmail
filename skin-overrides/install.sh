@@ -20,7 +20,8 @@ mkdir -p "$skin/fonts"
 cp "$here/fonts/material-symbols-rounded.woff2" "$skin/fonts/"
 cp "$here/favicon.ico" "$skin/images/favicon.ico"
 cp "$here/watermark.html" "$skin/watermark.html"
-cp "$here/images/uscc_login.png" "$here/images/uscc_small.png" "$here/images/uscc_dark.svg" "$skin/images/"
+cp "$here/images/uscc_login.png" "$here/images/uscc_small.png" "$here/images/uscc_dark.svg" \
+   "$here/images/uscc_blue.png" "$skin/images/"
 cp "$here/uscc-bg.jpg" "$skin/images/uscc-bg.jpg"
 
 # 3. hook _brand.less into styles.less (once)
